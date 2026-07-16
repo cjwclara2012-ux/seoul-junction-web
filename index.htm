@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seoul Junction | Your Weekend Escape in HK</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .neon-glow { box-shadow: 0 0 25px rgba(255, 94, 58, 0.35); }
         ::-webkit-scrollbar { width: 8px; }
@@ -16,33 +14,27 @@
 </head>
 <body class="bg-[#0B0F19] text-slate-100 font-sans overflow-x-hidden antialiased">
 
-    <!-- 설정값 -->
+    <!-- 깃허브 원본 CDN 주소 강제 추적 설정 (경로 오류 원천 차단) -->
     <script>
+        const RAW_GITHUB_URL = "https://raw.githubusercontent.com/cjwclara2012-ux/seoul-junction-web/main";
         window.seoulJunctionConfig = {
             gallery: [
-                "1. arrival&check-in.png",
-                "2. settle down&write name tag.png",
-                "3.somaeck ratio brewing.png",
-                "4.sincere ice-breaker cheer.png",
-                "5. speak only in korean.png",
-                "6. clang-clang bell  ring.png",
-                "7. real cantonese . english  exchange.png",
-                "8. photo session &contact exchange.png"
+                `${RAW_GITHUB_URL}/1.png`,
+                `${RAW_GITHUB_URL}/2.png`,
+                `${RAW_GITHUB_URL}/3.png`,
+                `${RAW_GITHUB_URL}/4.png`,
+                `${RAW_GITHUB_URL}/5.png`,
+                `${RAW_GITHUB_URL}/6.png`,
+                `${RAW_GITHUB_URL}/7.png`,
+                `${RAW_GITHUB_URL}/8.png`
             ]
         };
-
-        // 이미지 경로를 브라우저가 인식할 수 있게 안전하게 변환
-        function getSafeSrc(filename) {
-            return encodeURI(filename).replace(/&/g, '%26');
-        }
     </script>
 
-    <!-- 히어로 섹션 -->
     <header class="min-h-screen flex items-center justify-center pt-20 px-4">
         <div class="max-w-4xl text-center">
             <h1 class="text-5xl md:text-7xl font-black text-white mb-6">Ditch the Routine,<br><span class="text-[#FF5E3A]">Meet Global Minds</span></h1>
             
-            <!-- 슬라이더 -->
             <div class="bg-white p-4 rounded-2xl shadow-2xl max-w-sm mx-auto">
                 <img id="main-slider-img" src="" alt="Gallery" class="w-full aspect-[4/5] object-cover rounded-xl">
             </div>
@@ -54,11 +46,10 @@
         const sliderImg = document.getElementById('main-slider-img');
         
         function updateSlider() {
-            sliderImg.src = getSafeSrc(window.seoulJunctionConfig.gallery[idx]);
+            sliderImg.src = window.seoulJunctionConfig.gallery[idx];
             idx = (idx + 1) % window.seoulJunctionConfig.gallery.length;
         }
 
-        // 3초마다 이미지 교체
         setInterval(updateSlider, 3000);
         updateSlider();
     </script>
