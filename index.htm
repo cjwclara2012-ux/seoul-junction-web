@@ -70,6 +70,7 @@
 <body class="bg-midnight text-slate-100 font-sans overflow-x-hidden antialiased">
 
     <script>
+        // Symmetrical Two-Event CMS Configuration State with Calendar Mapping & Dynamic Timelines
         window.seoulJunctionConfig = {
             metadata: {
                 passcode: "54028803"
@@ -265,6 +266,13 @@
                 ticket_image: "8. photo session &contact exchange.png"
             }
         };
+
+        // NEW: Symmetrical Safe Image Path Encoder to handle spaces & '&' on Vercel CDN
+        function safeSrc(path) {
+            if (!path) return "";
+            // Replace spaces with %20 and ampersands with %26 to ensure flawless browser routing
+            return path.replace(/ /g, "%20").replace(/&/g, "%26");
+        }
     </script>
 
     <!-- Floating Navbar -->
@@ -312,7 +320,7 @@
                 
                 <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight leading-none mb-6">
                     <span class="lang-en" id="dom-hero-title-en">Ditch the Routine,<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-neonCoral to-warmYellow">Meet Global Minds</span></span>
-                    <span class="lang-kr hidden" id="dom-hero-title-kr">지루한 주말 고민은 끝,<br>힙한 글로벌 인맥을 만드는 법</span>
+                    <span class="lang-kr hidden" id="dom-hero-title-kr">지루한 주말 고민은 끝,\n힙한 글로벌 인맥을 만드는 법</span>
                 </h1>
 
                 <p class="text-slate-400 text-base md:text-lg max-w-lg mb-8 leading-relaxed">
@@ -1517,13 +1525,13 @@
 
             // Symmetrical Polaroid slideshow first index loading
             if (data.hero.gallery && data.hero.gallery.length > 0) {
-                document.getElementById('dom-hero-slideshow-img').src = data.hero.gallery[0].img;
+                document.getElementById('dom-hero-slideshow-img').src = safeSrc(data.hero.gallery[0].img);
                 document.getElementById('dom-hero-slideshow-caption').textContent = currentLang === 'EN' ? data.hero.gallery[0].cap_en : data.hero.gallery[0].cap_kr;
             }
 
             // Ticket Slideshow Banner initialization
             if (data.ticketGallery && data.ticketGallery.length > 0) {
-                document.getElementById('dom-design-ticket-img').src = data.ticketGallery[0];
+                document.getElementById('dom-design-ticket-img').src = safeSrc(data.ticketGallery[0]);
             }
 
             // Refund Policy bindings
@@ -1531,7 +1539,7 @@
             document.getElementById('dom-refund-policy-en').textContent = data.refund.policy_en;
 
             // Seating map & orange pass ticket mapping
-            document.getElementById('dom-design-seating-img').src = data.design.seating_image;
+            document.getElementById('dom-design-seating-img').src = safeSrc(data.design.seating_image);
 
             // Synchronize static card values
             document.getElementById('dom-friday-card-sub').textContent = data.events.friday.where;
@@ -1562,7 +1570,7 @@
             } else {
                 currentLang = 'EN';
                 indicator.innerText = 'EN';
-                krElements.forEach(el => el.classList.add('hidden'));
+                krElements.forEach(el => el.classList.remove('hidden'));
                 enElements.forEach(el => el.classList.remove('hidden'));
             }
             updateAvailabilityPanel();
@@ -1607,7 +1615,7 @@
             if (imgElement) {
                 imgElement.style.opacity = '0.3';
                 setTimeout(() => {
-                    imgElement.src = targetSlide.img;
+                    imgElement.src = safeSrc(targetSlide.img);
                     document.getElementById('dom-hero-slideshow-caption').textContent = currentLang === 'EN' ? targetSlide.cap_en : targetSlide.cap_kr;
                     document.getElementById('dom-hero-slideshow-indicator').textContent = `Timeline (${index + 1}/${gallery.length})`;
                     imgElement.style.opacity = '1';
@@ -1660,7 +1668,7 @@
             if (imgElement) {
                 imgElement.style.opacity = '0.3';
                 setTimeout(() => {
-                    imgElement.src = gallery[index];
+                    imgElement.src = safeSrc(gallery[index]);
                     document.getElementById('dom-ticket-slideshow-indicator').textContent = `Vibe (${index + 1}/${gallery.length})`;
                     imgElement.style.opacity = '1';
                 }, 150);
@@ -1676,6 +1684,7 @@
             jumpToFlowSlide(nextIndex);
         }
 
+        // Symmetrical flow chevrons navigation
         function navigateFlowGallery(direction) {
             const flowGallery = window.seoulJunctionConfig.programFlowGallery;
             if (!flowGallery || flowGallery.length === 0) return;
@@ -1701,7 +1710,7 @@
             if (imgElement) {
                 imgElement.style.opacity = '0.3';
                 setTimeout(() => {
-                    imgElement.src = targetSlide.img;
+                    imgElement.src = safeSrc(targetSlide.img);
                     document.getElementById('dom-flow-slideshow-indicator').textContent = `Timeline (${index + 1}/${flowGallery.length})`;
                     document.getElementById('dom-flow-slideshow-title').textContent = currentLang === 'EN' ? targetSlide.title_en : targetSlide.title_kr;
                     document.getElementById('dom-flow-slideshow-desc').textContent = currentLang === 'EN' ? targetSlide.desc_en : targetSlide.desc_kr;
@@ -2388,4 +2397,3 @@
     </script>
 </body>
 </html>
-```
