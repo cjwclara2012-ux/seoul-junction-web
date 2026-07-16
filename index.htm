@@ -70,7 +70,6 @@
 <body class="bg-midnight text-slate-100 font-sans overflow-x-hidden antialiased">
 
     <script>
-        // Symmetrical Two-Event CMS Configuration State mapping directly to the uploaded file names
         window.seoulJunctionConfig = {
             metadata: {
                 passcode: "54028803"
@@ -82,7 +81,7 @@
                 slogan_kr: "일상 탈출, 힙한 주말의 시작",
                 desc_en: "Tired of superficial clubs and awkward meetups? Escape to our premium language & cultural salon. Meet verified local professionals, expats, and Koreans under gorgeous city lights.",
                 desc_kr: "시끄럽고 가벼운 클럽이나 어색한 밋업에 지치셨나요? 이제 매주 금요일과 토요일 저녁, 감성적인 공간에서 신원 확실한 홍콩 글로벌 직장인, 로컬 현지인들과 함께 힙한 에너지를 나눠보세요.",
-                // Interactive Polaroid gallery sequence with customized handwritten captions
+                // Interactive Polaroid gallery sequence mapping with verified long asset names
                 gallery: [
                     {
                         img: "1. arrival&check-in.png",
@@ -126,7 +125,6 @@
                     }
                 ]
             },
-            // Interactive Program Flow Timeline Slideshow
             programFlowGallery: [
                 {
                     img: "1. arrival&check-in.png",
@@ -1704,7 +1702,7 @@
                 imgElement.style.opacity = '0.3';
                 setTimeout(() => {
                     imgElement.src = targetSlide.img;
-                    document.getElementById('dom-flow-slideshow-indicator').textContent = `Step (${index + 1}/${flowGallery.length})`;
+                    document.getElementById('dom-flow-slideshow-indicator').textContent = `Timeline (${index + 1}/${flowGallery.length})`;
                     document.getElementById('dom-flow-slideshow-title').textContent = currentLang === 'EN' ? targetSlide.title_en : targetSlide.title_kr;
                     document.getElementById('dom-flow-slideshow-desc').textContent = currentLang === 'EN' ? targetSlide.desc_en : targetSlide.desc_kr;
                     imgElement.style.opacity = '1';
@@ -2249,7 +2247,6 @@
             document.getElementById('admin-passcode-input').focus();
         }
 
-        // Symmetrically dismiss admin dialogs
         function closeAdminAuth() {
             const modal = document.getElementById('admin-auth-modal');
             modal.classList.add('opacity-0', 'pointer-events-none');
@@ -2271,6 +2268,124 @@
                 document.getElementById('admin-auth-error').classList.remove('hidden');
             }
         }
+
+        function openAdminDashboard() {
+            const data = window.seoulJunctionConfig;
+            
+            document.getElementById('edit-event-friday-title-en').value = data.events.friday.title_en;
+            document.getElementById('edit-event-friday-title-kr').value = data.events.friday.title_kr;
+            document.getElementById('edit-event-friday-slogan-en').value = data.events.friday.slogan_en;
+            document.getElementById('edit-event-friday-slogan-kr').value = data.events.friday.slogan_kr;
+            document.getElementById('edit-event-friday-type-en').value = data.events.friday.type_en;
+            document.getElementById('edit-event-friday-type-kr').value = data.events.friday.type_kr;
+            document.getElementById('edit-event-friday-when').value = data.events.friday.when;
+            document.getElementById('edit-event-friday-where').value = data.events.friday.where;
+            document.getElementById('edit-event-friday-inclusions').value = data.events.friday.inclusions;
+            document.getElementById('edit-event-friday-fee').value = data.events.friday.fee;
+
+            document.getElementById('edit-event-saturday-title-en').value = data.events.saturday.title_en;
+            document.getElementById('edit-event-saturday-title-kr').value = data.events.saturday.title_kr;
+            document.getElementById('edit-event-saturday-slogan-en').value = data.events.saturday.slogan_en;
+            document.getElementById('edit-event-saturday-slogan-kr').value = data.events.saturday.slogan_kr;
+            document.getElementById('edit-event-saturday-type-en').value = data.events.saturday.type_en;
+            document.getElementById('edit-event-saturday-type-kr').value = data.events.saturday.type_kr;
+            document.getElementById('edit-event-saturday-when').value = data.events.saturday.when;
+            document.getElementById('edit-event-saturday-where').value = data.events.saturday.where;
+            document.getElementById('edit-event-saturday-inclusions').value = data.events.saturday.inclusions;
+            document.getElementById('edit-event-saturday-fee').value = data.events.saturday.fee;
+
+            document.getElementById('edit-hero-title-en').value = data.hero.title_en;
+            document.getElementById('edit-hero-title-kr').value = data.hero.title_kr;
+            document.getElementById('edit-hero-desc-en').value = data.hero.desc_en;
+            document.getElementById('edit-hero-desc-kr').value = data.hero.desc_kr;
+
+            document.getElementById('edit-img-hero').value = "1. arrival&check-in.png";
+            document.getElementById('edit-img-seating').value = data.design.seating_image;
+            document.getElementById('edit-img-ticket').value = data.design.ticket_image;
+
+            document.getElementById('edit-metadata-passcode').value = data.metadata.passcode;
+
+            document.getElementById('admin-dashboard').classList.remove('hidden');
+        }
+
+        function closeAdminDashboard() {
+            document.getElementById('admin-dashboard').classList.add('hidden');
+        }
+
+        // Build and Export new index.html with baked variables
+        function exportUpdatedHtml() {
+            const updatedConfig = {
+                metadata: {
+                    passcode: document.getElementById('edit-metadata-passcode').value
+                },
+                hero: {
+                    title_en: document.getElementById('edit-hero-title-en').value,
+                    title_kr: document.getElementById('edit-hero-title-kr').value,
+                    desc_en: document.getElementById('edit-hero-desc-en').value,
+                    desc_kr: document.getElementById('edit-hero-desc-kr').value,
+                    image: document.getElementById('edit-img-hero').value,
+                    gallery: window.seoulJunctionConfig.hero.gallery,
+                    slogan_en: window.seoulJunctionConfig.hero.slogan_en,
+                    slogan_kr: window.seoulJunctionConfig.hero.slogan_kr
+                },
+                programFlowGallery: window.seoulJunctionConfig.programFlowGallery,
+                ticketGallery: window.seoulJunctionConfig.ticketGallery,
+                refund: {
+                    policy_kr: document.getElementById('edit-refund-kr').value,
+                    policy_en: document.getElementById('edit-refund-en').value
+                },
+                events: {
+                    friday: {
+                        title_en: document.getElementById('edit-event-friday-title-en').value,
+                        title_kr: document.getElementById('edit-event-friday-title-kr').value,
+                        slogan_en: document.getElementById('edit-event-friday-slogan-en').value,
+                        slogan_kr: document.getElementById('edit-event-friday-slogan-kr').value,
+                        type_en: document.getElementById('edit-event-friday-type-en').value,
+                        type_kr: document.getElementById('edit-event-friday-type-kr').value,
+                        when: document.getElementById('edit-event-friday-when').value,
+                        where: document.getElementById('edit-event-friday-where').value,
+                        inclusions: document.getElementById('edit-event-friday-inclusions').value,
+                        fee: document.getElementById('edit-event-friday-fee').value
+                    },
+                    saturday: {
+                        title_en: document.getElementById('edit-event-saturday-title-en').value,
+                        title_kr: document.getElementById('edit-event-saturday-title-kr').value,
+                        slogan_en: document.getElementById('edit-event-saturday-slogan-en').value,
+                        slogan_kr: document.getElementById('edit-event-saturday-slogan-kr').value,
+                        type_en: document.getElementById('edit-event-saturday-type-en').value,
+                        type_kr: document.getElementById('edit-event-saturday-type-kr').value,
+                        when: document.getElementById('edit-event-saturday-when').value,
+                        where: document.getElementById('edit-event-saturday-where').value,
+                        inclusions: document.getElementById('edit-event-saturday-inclusions').value,
+                        fee: document.getElementById('edit-event-saturday-fee').value
+                    }
+                },
+                dateBookings: window.seoulJunctionConfig.dateBookings,
+                steps: window.seoulJunctionConfig.steps,
+                design: {
+                    seating_image: document.getElementById('edit-img-seating').value,
+                    ticket_image: document.getElementById('edit-img-ticket').value
+                }
+            };
+
+            window.seoulJunctionConfig = updatedConfig;
+            renderDynamicContent();
+
+            let htmlContent = document.documentElement.outerHTML;
+            const findRegex = /window\.seoulJunctionConfig\s*=\s*\{[\s\S]*?\};/;
+            const replaceString = `window.seoulJunctionConfig = ${JSON.stringify(updatedConfig, null, 12)};`;
+            
+            htmlContent = htmlContent.replace(findRegex, replaceString);
+
+            const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "index.html";
+            link.click();
+
+            closeAdminDashboard();
+        }
     </script>
 </body>
 </html>
+```
