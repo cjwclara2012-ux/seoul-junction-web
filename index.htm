@@ -267,11 +267,14 @@
             }
         };
 
-        // NEW: Symmetrical Safe Image Path Encoder to handle spaces & '&' on Vercel CDN
+        // Symmetrical Safe Image Path Encoder to bypass Vercel's static router ampersand limitations
         function safeSrc(path) {
             if (!path) return "";
-            // Replace spaces with %20 and ampersands with %26 to ensure flawless browser routing
-            return path.replace(/ /g, "%20").replace(/&/g, "%26");
+            if (path.startsWith("http")) return path;
+            
+            // Route through GitHub's raw CDN to guarantee ampersand/spaces resolution on any platform
+            const repoBase = "https://raw.githubusercontent.com/cjwclara2012-ux/seoul-junction-web-/main/";
+            return repoBase + encodeURIComponent(path);
         }
     </script>
 
@@ -386,7 +389,7 @@
                     <!-- Image Slideshow Frame (Click anywhere on image to cycle) -->
                     <!-- Symmetrical pre-encoded path to guarantee immediate load -->
                     <div onclick="cycleHeroImageClick()" class="relative overflow-hidden rounded-xl mb-4 aspect-[4/5] bg-gradient-to-tr from-slate-900 via-darkgray to-slate-950 flex items-center justify-center border border-slate-200/10 cursor-pointer">
-                        <img id="dom-hero-slideshow-img" src="1.%20arrival%26check-in.png" alt="Premium escape vibe" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-500 ease-in-out">
+                        <img id="dom-hero-slideshow-img" src="" alt="Premium escape vibe" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-500 ease-in-out">
 
                         <div class="absolute bottom-3 left-3 bg-midnight/90 backdrop-blur-md text-white text-[10px] px-3 py-1.5 rounded-full font-black shadow-lg z-20 uppercase tracking-widest flex items-center gap-1.5">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
@@ -526,7 +529,7 @@
 
                         <!-- Image Slideshow (Clicking photo cycles) -->
                         <div onclick="cycleFlowImageClick()" class="relative overflow-hidden rounded-xl mb-4 aspect-[4/3] bg-slate-950 flex items-center justify-center cursor-pointer border border-slate-100">
-                            <img id="dom-flow-slideshow-img" src="1.%20arrival%26check-in.png" alt="Program flow active photo" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 ease-in-out">
+                            <img id="dom-flow-slideshow-img" src="" alt="Program flow active photo" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 ease-in-out">
                             
                             <!-- Flow index label -->
                             <div class="absolute bottom-3 left-3 bg-midnight/90 backdrop-blur-md text-white text-[10px] px-3 py-1.5 rounded-full font-black shadow-lg z-20 uppercase tracking-widest flex items-center gap-1.5">
@@ -612,7 +615,7 @@
                 <!-- Right: Seating setup layout image with exact mapping -->
                 <div class="lg:col-span-6 relative flex justify-center">
                     <div class="relative w-full max-w-lg aspect-video bg-darkgray border border-slate-800 rounded-3xl overflow-hidden shadow-2xl group zoom-container flex items-center justify-center">
-                        <img id="dom-design-seating-img" src="4.sincere%20ice-breaker%20cheer.png" alt="Engineered 2:2 / 2:2:2 seating table layout" class="absolute inset-0 w-full h-full object-cover z-10">
+                        <img id="dom-design-seating-img" src="" alt="Engineered 2:2 / 2:2:2 seating table layout" class="absolute inset-0 w-full h-full object-cover z-10">
                         <div class="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/20 to-transparent z-15"></div>
                         
                         <div class="absolute bottom-5 left-5 right-5 z-20 flex items-center gap-4">
@@ -683,7 +686,7 @@
 
                     <!-- Ticket Image Container (Clicking image cycles) -->
                     <div onclick="cycleTicketImageClick()" class="w-full h-full relative cursor-pointer overflow-hidden rounded-2xl">
-                        <img id="dom-design-ticket-img" src="8.%20photo%20session%20%26contact%20exchange.png" alt="Seoul Junction Ticket Vibe" class="absolute inset-0 w-full h-full object-cover rounded-2xl z-10 transition-opacity duration-300 ease-in-out">
+                        <img id="dom-design-ticket-img" src="" alt="Seoul Junction Ticket Vibe" class="absolute inset-0 w-full h-full object-cover rounded-2xl z-10 transition-opacity duration-300 ease-in-out">
                         
                         <!-- Ticket Badge Indicator -->
                         <div class="absolute bottom-3 left-3 bg-midnight/90 backdrop-blur-md text-white text-[10px] px-3 py-1.5 rounded-full font-black shadow-lg z-20 uppercase tracking-widest flex items-center gap-1.5">
@@ -1419,7 +1422,7 @@
         </div>
     </div>
 
-    <!-- Symmetrical Real-Time Footer -->
+    <!-- Footer -->
     <footer class="bg-midnight border-t border-slate-900 py-12">
         <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div>
@@ -1571,7 +1574,7 @@
             } else {
                 currentLang = 'EN';
                 indicator.innerText = 'EN';
-                krElements.forEach(el => el.classList.remove('hidden'));
+                krElements.forEach(el => el.classList.add('hidden'));
                 enElements.forEach(el => el.classList.remove('hidden'));
             }
             updateAvailabilityPanel();
@@ -2398,4 +2401,3 @@
     </script>
 </body>
 </html>
-```
