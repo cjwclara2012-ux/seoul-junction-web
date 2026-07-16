@@ -16,7 +16,7 @@
         <!-- 메인 슬라이더 -->
         <div class="relative w-full aspect-[4/5] bg-gray-900 rounded-2xl overflow-hidden shadow-2xl border border-gray-800">
             <img id="main-slider-img" 
-                 src="https://i.postimg.cc/1X9V5qGz/1.png" 
+                 src="./1.png" 
                  alt="Gallery" 
                  class="w-full h-full object-cover transition-opacity duration-500"
                  onerror="this.src='https://placehold.co/600x750/1f2937/ffffff?text=Image+Loading...'">
@@ -33,7 +33,6 @@
         <section class="space-y-4">
             <h2 class="text-2xl font-bold">Program Flow / Timeline</h2>
             <div id="timeline-container" class="space-y-3">
-                <!-- JavaScript가 타임라인 아이템을 렌더링합니다 -->
             </div>
         </section>
 
@@ -45,19 +44,8 @@
     </div>
 
     <script>
-        // 이미지 호스팅 주소
-        const images = [
-            "https://i.postimg.cc/1X9V5qGz/1.png",
-            "https://i.postimg.cc/7Z9V5qGz/2.png",
-            "https://i.postimg.cc/8Z9V5qGz/3.png",
-            "https://i.postimg.cc/9Z9V5qGz/4.png",
-            "https://i.postimg.cc/0Z9V5qGz/5.png",
-            "https://i.postimg.cc/1Z9V5qGz/6.png",
-            "https://i.postimg.cc/2Z9V5qGz/7.png",
-            "https://i.postimg.cc/3Z9V5qGz/8.png"
-        ];
+        const images = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png"];
         
-        // 타임라인 데이터
         const timelineData = [
             { title: "Arrival & Check-in", desc: "Write your custom name tag" },
             { title: "Settle Down & Name Tag", desc: "Choose your preferred Korean food" },
@@ -84,7 +72,6 @@
             container.appendChild(div);
         });
 
-        // 슬라이더 로직
         let idx = 0;
         const sliderImg = document.getElementById('main-slider-img');
         const counter = document.getElementById('slider-counter');
@@ -99,7 +86,6 @@
             }, 500);
         }
         
-        // 3초마다 슬라이더 자동 전환
         setInterval(updateSlider, 3000);
     </script>
 </body>
