@@ -14,44 +14,27 @@
 </head>
 <body class="bg-[#0B0F19] text-slate-100 font-sans overflow-x-hidden antialiased">
 
-    <!-- 깃허브 원본 CDN 주소 강제 추적 설정 (경로 오류 원천 차단) -->
-    <script>
-        const RAW_GITHUB_URL = "https://raw.githubusercontent.com/cjwclara2012-ux/seoul-junction-web/main";
-        window.seoulJunctionConfig = {
-            gallery: [
-                `${RAW_GITHUB_URL}/1.png`,
-                `${RAW_GITHUB_URL}/2.png`,
-                `${RAW_GITHUB_URL}/3.png`,
-                `${RAW_GITHUB_URL}/4.png`,
-                `${RAW_GITHUB_URL}/5.png`,
-                `${RAW_GITHUB_URL}/6.png`,
-                `${RAW_GITHUB_URL}/7.png`,
-                `${RAW_GITHUB_URL}/8.png`
-            ]
-        };
-    </script>
-
     <header class="min-h-screen flex items-center justify-center pt-20 px-4">
         <div class="max-w-4xl text-center">
             <h1 class="text-5xl md:text-7xl font-black text-white mb-6">Ditch the Routine,<br><span class="text-[#FF5E3A]">Meet Global Minds</span></h1>
             
             <div class="bg-white p-4 rounded-2xl shadow-2xl max-w-sm mx-auto">
-                <img id="main-slider-img" src="" alt="Gallery" class="w-full aspect-[4/5] object-cover rounded-xl">
+                <img id="main-slider-img" src="1.png" alt="Gallery" class="w-full aspect-[4/5] object-cover rounded-xl">
             </div>
         </div>
     </header>
 
     <script>
+        const images = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png"];
         let idx = 0;
         const sliderImg = document.getElementById('main-slider-img');
         
         function updateSlider() {
-            sliderImg.src = window.seoulJunctionConfig.gallery[idx];
-            idx = (idx + 1) % window.seoulJunctionConfig.gallery.length;
+            sliderImg.src = images[idx];
+            idx = (idx + 1) % images.length;
         }
 
         setInterval(updateSlider, 3000);
-        updateSlider();
     </script>
 </body>
 </html>
